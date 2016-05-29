@@ -42,10 +42,12 @@ config = {
     mail: {
       transport: 'SMTP',
       options: {
-        service: 'Mailgun',
+        service: 'Sendinblue',
+        host: process.env.SMTP_SERVER.
+        port: process.env.SMTP_PORT,
         auth: {
-          user: process.env.MAILGUN_SMTP_LOGIN,
-          pass: process.env.MAILGUN_SMTP_PASSWORD
+            user: process.env.SMTP_USERNAME,
+            pass: process.env.SMTP_PASSWORD,
         }
       }
     },
