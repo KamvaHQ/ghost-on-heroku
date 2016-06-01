@@ -1,110 +1,128 @@
 {{!< default}}
+         
+<div id="container" class="container">   
+        
+    {{#post}}
 
-{{!-- The comment above "< default" means - insert everything in this file into
-    the {{{body}}} of the default.hbs template, containing the blog header/footer. --}}
+    {{> header}}
 
-{{!-- Everything inside the #post tags pulls data from the post --}}
-{{#post}}
+    <main role="main">
 
-<header class="main-header post-head {{#if image}}" style="background-image: url({{image}}){{else}}no-cover{{/if}}">
-    <nav class="main-nav {{#if image}}overlay{{/if}} clearfix">
-        {{#if @blog.logo}}<a class="blog-logo" href="{{@blog.url}}"><img src="{{@blog.logo}}" alt="{{@blog.title}}" /></a>{{/if}}
-        {{#if @blog.navigation}}
-            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
-        {{/if}}
-    </nav>
-</header>
-
-<main class="content" role="main">
-    <article class="{{post_class}}">
-
-        <header class="post-header">
-            <h1 class="post-title">{{title}}</h1>
-            <section class="post-meta">
-                <time class="post-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMMM YYYY"}}</time> {{tags prefix=" on "}}
-            </section>
-        </header>
-
-        <section class="post-content">
-            {{content}}
-        </section>
-
-        <footer class="post-footer">
-
-        {{!-- Everything inside the #author tags pulls data from the author --}}
-        {{#author}}
-
-            {{#if image}}
-            <figure class="author-image">
-                <a class="img" href="{{url}}" style="background-image: url({{image}})"><span class="hidden">{{name}}'s Picture</span></a>
-            </figure>
-            {{/if}}
-
-            <section class="author">
-                <h4><a href="{{url}}">{{name}}</a></h4>
-
-                {{#if bio}}
-                    <p>{{bio}}</p>
-                {{else}}
-                    <p>Read <a href="{{url}}">more posts</a> by this author.</p>
-                {{/if}}
-                <div class="author-meta">
-                    {{#if location}}<span class="author-location icon-location">{{location}}</span>{{/if}}
-                    {{#if website}}<span class="author-link icon-link"><a href="{{website}}">{{website}}</a></span>{{/if}}
+        <article class="{{post_class}}">
+            <header class="post-header_pellere {{#if image}}img-fullpage_pellere" style="background-image: url({{image}}){{/if}}">
+                <div class="vertical_pellere">
+                    <section class="inner_pellere">
+                        <h1>{{title}}</h1>
+                        <ul>
+                            {{#if author.image}}<li class="post-authorimg_pellere"><img class="author-thumb_pellere" src="{{author.image}}" alt="Author image" nopin="nopin" /></li>{{/if}}
+                            <li class="author-name_pellere"><a href="{{@blog.url}}/author/{{author.slug}}">{{author.name}}</a></li>
+                            <li><time>{{date format='DD MMM YYYY'}}</time></li>
+                        </ul>
+                    </section>
+                </div>
+            </header>
+             
+            <section class="post-content_pellere">
+                <div>
+                    {{content}}
                 </div>
             </section>
+            
+            <footer class="post-footer_pellere wrapper_pellere">
+                {{#if tags}}
+                    <section class="post-tags_pellere">
+                        <h5 class="hidden_pellere">Tags</h5>
+                        {{tags separator=""}}
+                    </section>
+                {{/if}}
+                
+                <div class="author_pellere">
+                    {{#author}}
+                        {{#if image}}
+                            <figure class="author-img_pellere">
+                                <a href="{{url}}" style="background-image: url({{image}})"><span class="hidden_pellere">{{name}}'s Picture</span></a>
+                            </figure>
+                        {{else}} 
+                            <figure class="author-withoutimg_pellere">
+                                <a href="{{url}}" style="background-image: url({{asset "img/author-icon.jpg"}})"><span class="hidden_pellere">{{name}}'s Picture</span></a>
+                            </figure>
+                        {{/if}}
+                        <section class="about-author_pellere">
+                            <h4><a href="{{url}}">{{name}}</a></h4>
+                            {{#if bio}}
+                                <p>{{bio}}</p>
+                            {{else}}
+                                <p>Read <a href="{{url}}">more articles</a> by this author.</p>
+                            {{/if}}
+                        </section>
+                        {{/author}} 
+                        <div class="share_pellere">
+                            <div>
+                            <a class="twitter-share" target="_blank" href="http://twitter.com/share?text={{title}}&url={{url absolute="true"}}"><i class="fa fa-twitter"></i><span class="hidden_pellere">Twitter</span></a> 
+                            <a class="facebook-share" target="_blank" href="http://www.facebook.com/sharer.php?u={{url absolute="true"}}"><i class="fa fa-facebook"></i><span class="hidden_pellere">Facebook</span></a>
+                            <a class="google-share" target="_blank" href="https://plus.google.com/share?url={{url absolute="true"}}"><i class="fa fa-google-plus"></i> <span class="hidden_pellere">Google+</span></a>
+                            <h4>Share this post</h4>
+                            </div>
+                        </div>
+                </div>
+                
+            </footer>
+        </article>
+        
+        <div class="disqusbox_pellere wrapper_pellere">
+            <div id="disqus_thread"><form onsubmit="my.loadDisqus();return false;" class=formBlock><input class="cmd_pellere" type=submit value="Load Comments"></form>
+            </div>
 
-        {{/author}}
+            {{! Disqus comments }}
+            <script type="text/javascript">
+                {{> custom/disqus this}}
 
-            <section class="share">
-                <h4>Share this post</h4>
-                <a class="icon-twitter" href="https://twitter.com/intent/tweet?text={{encode title}}&amp;url={{url absolute="true"}}"
-                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
-                    <span class="hidden">Twitter</span>
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                var disqus_url = "{{url absolute="true"}}";
+                var disqus_identifier = '{{post.id}}';
+                var my = my || {};
+                my.loadDisqus = function() {
+                    var dsq = document.createElement('script');
+                    dsq.type = 'text/javascript';
+                    dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                };
+            </script>
+
+            <noscript>Please enable javascript to <a rel="nofollow" href="http://disqus.com/?ref_noscript">discus this page, powered by Disqus.</a></noscript>
+            
+            <style scoped=scoped>
+                @media print{
+                    .disqusbox{display:none}
+                }
+            </style>
+        </div>
+    </main>
+
+    <aside class="read-next_pellere wrapper_pellere">
+        {{#next_post}}
+            <section class="next-story_pellere">
+                <a href="{{url}}">
+                    <h2>{{title}}</h2>
+                    <i class="fa fa-angle-left"></i>
                 </a>
-                <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u={{url absolute="true"}}"
-                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
-                    <span class="hidden">Facebook</span>
-                </a>
-                <a class="icon-google-plus" href="https://plus.google.com/share?url={{url absolute="true"}}"
-                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
-                    <span class="hidden">Google+</span>
-                </a>
+                <p>By <a href="{{@blog.url}}/author/{{author.slug}}">{{author.name}}</a></p>
             </section>
+        {{/next_post}}
+        {{#prev_post}}
+            <section class="prev-story_pellere">
+                <a href="{{url}}"> 
+                    <h2>{{title}}</h2>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                <p>By <a href="{{@blog.url}}/author/{{author.slug}}">{{author.name}}</a></p>
+            </section> 
+        {{/prev_post}}
+    </aside>
 
-            {{!-- Email subscribe form at the bottom of the page --}}
-            {{#if @labs.subscribers}}
-            <section class="gh-subscribe">
-                <h3 class="gh-subscribe-title">Subscribe to {{@blog.title}}</h3>
-                <p>Get the latest posts delivered right to your inbox.</p>
-                {{subscribe_form placeholder="Your email address"}}
-                <span class="gh-subscribe-rss">or subscribe <a href="http://cloud.feedly.com/#subscription/feed/{{@blog.url}}/rss/">via RSS</a> with Feedly!</span>
-            </section>
-            {{/if}}
+    {{/post}} 
 
-        </footer>
-
-    </article>
-</main>
-
-{{!-- Links to Previous/Next posts --}}
-<aside class="read-next">
-    {{#next_post}}
-    <a class="read-next-story {{#if image}}" style="background-image: url({{image}}){{else}}no-cover{{/if}}" href="{{url}}">
-        <section class="post">
-            <h2>{{title}}</h2>
-            <p>{{excerpt words="19"}}&hellip;</p>
-        </section>
-    </a>
-    {{/next_post}}
-    {{#prev_post}}
-    <a class="read-next-story prev {{#if image}}" style="background-image: url({{image}}){{else}}no-cover{{/if}}" href="{{url}}">
-        <section class="post">
-            <h2>{{title}}</h2>
-            <p>{{excerpt words="19"}}&hellip;</p>
-        </section>
-    </a>
-    {{/prev_post}}
-</aside>
-
-{{/post}}
+    {{> footer}} 
+       
+</div>
