@@ -1,54 +1,25 @@
- {{#foreach posts}}
-            
-    {{#if featured}}
-        
-        <article class="{{post_class}}">
-            <a href="{{url}}" class="inner-featured {{#if image}}featured-with-image" style="background-image: url({{image}}){{/if}}" rel="bookmark">
-               
-                <div class="inner_pellere">
-                    <header class="article-header_pellere">
-                        <h2 class="post-title_pellere">{{title}}</h2>
-                    </header>
-                    <section class="articlecontent_pellere">
-                        <p>{{excerpt words="19"}}&hellip;</p>
-                    </section>
-                    <footer class="post-meta_pellere">
-                        <span class="read-more_pellere">Read More</span>
-                    </footer>
-                </div>
-                <div class="star_pellere"><i class="fa fa-star"></i></div>
-            </a>
-        </article>
-        <hr class="featured-hr_pellere" />
-        
-    {{else}}
+{{!-- Previous/next page links - only displayed on page 2+ --}}
+<div class="extra-pagination inner">
+    {{pagination}}
+</div>
 
-        <article class="{{post_class}}">
-            <header class="article-header_pellere">
-                <h2><a href="{{{url}}}" rel="bookmark">{{title}}</a></h2>
-            </header>
-            <section class="articlecontent_pellere">
-                <a href="{{{url}}}">
-                    <p>{{excerpt words="19"}}&hellip;</p>
-                    {{#if image}}
-                        <a class="wrapper-image" href="{{url}}"><img class="post-image" src="{{image}}" alt="{{title}}" /></a>
-                    {{/if}}
-                </a>
-            </section>
-            <footer class="post-meta_pellere">
-                {{#if author.image}}<a href="{{@blog.url}}/author/{{author.slug}}"><img class="author-thumb_pellere" src="{{author.image}}" alt="Author image" nopin="nopin" /></a>{{/if}}
-                <ul>
-                    <li class="author-name_pellere"><a href="{{@blog.url}}/author/{{author.slug}}">{{author.name}}</a></li>
-                    <li>
-                        <time>{{date format='DD MMM YYYY'}}</time>
-                        {{#if tags}}<span>{{tags separator=", "}}</span>{{/if}}
-                    </li>
-                </ul>
-            </footer>
-        </article>
-                        
-    {{/if}}
-    
-{{/foreach}}  
+{{!-- This is the post loop - each post will be output using this markup --}}
+{{#foreach posts}}
+<article class="{{post_class}}">
+    <header class="post-header">
+        <h2 class="post-title"><a href="{{url}}">{{title}}</a></h2>
+    </header>
+    <section class="post-excerpt">
+        <p>{{excerpt words="26"}} <a class="read-more" href="{{url}}">&raquo;</a></p>
+    </section>
+    <footer class="post-meta">
+        {{#if author.image}}<img class="author-thumb" src="{{author.image}}" alt="{{author.name}}" nopin="nopin" />{{/if}}
+        {{author}}
+        {{tags prefix=" on "}}
+        <time class="post-date" datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMMM YYYY"}}</time>
+    </footer>
+</article>
+{{/foreach}}
 
-{{#if pagination}}{{{pagination}}}{{/if}}
+{{!-- Previous/next page links - displayed on every page --}}
+{{pagination}}
