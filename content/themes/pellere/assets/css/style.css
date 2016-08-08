@@ -1739,8 +1739,8 @@ article {
 #container .read-next_pellere .prev-story_pellere > a { margin-right: 6rem; position: relative; }
 #container .read-next_pellere .prev-story_pellere > a i { position: absolute; right: -6rem; top: -2rem; }
 
-.next-story_pellere > a:before { content: "Next article"; }
-.prev-story_pellere > a:before { content: "Previous article"; }
+.next-story_pellere > a:before { content: "مطلب بعدی"; }
+.prev-story_pellere > a:before { content: "مطلب قبلی"; }
 
 .next-story_pellere > a:before,
 .prev-story_pellere > a:before {
@@ -2472,6 +2472,10 @@ article {
 h1, h2, h3, h4, h5, h6 {
   direction: rtl;
   text-align: right;
+}
+
+.vertical_pellere h1 {
+    text-align: center;
 }
 
 .post-content_pellere li {
