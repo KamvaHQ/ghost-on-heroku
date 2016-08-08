@@ -1,13 +1,17 @@
 <aside class="right-column index sticky_item">
     <div class="inner-aside">  
         
+        {{! Blog Description }}
         {{#if @blog.description}}
             <section class="banner">
                 <h2>{{@blog.description}}</h2>
             </section>
         {{/if}}
         
+        {{! Newsletter }}
+        {{ subscribe_form }}
         
+        {{! Cloud Tags }}
         {{#get "tags" limit="15" include="count.posts" order="count.posts desc"}}
             <section class="cloud-tags">
                 <h3>Popular tags&#58;</h3>
@@ -20,7 +24,7 @@
             </section>
         {{/get}}
         
-        
+        {{! Featured Posts }}
         {{#get "posts" filter="featured:true" limit="5" as |featured|}}
             <section class="featured-posts">
                 <h3>Featured articles&#58;</h3>
@@ -41,11 +45,11 @@
             </section>
         {{/get}}
         
-        
+        {{! Authors }}
+        {{#get "users" limit="all" include="name, bio, img, count.posts" order="count.posts desc"}}
         <section class="authors">
             <h3>Authors&#58;</h3>
             <hr>
-            {{#get "users" limit="all" include="name, bio, img, count.posts" order="count.posts desc"}}
             <ul>
                 {{#foreach users}}
                     <li>
@@ -67,10 +71,10 @@
                     </li>
                 {{/foreach}}  
             </ul>
-            {{/get}}
         </section>
+        {{/get}}
         
-        
+        {{! Recents Posts }}
         {{#get "posts" include="author, time" limit="5" as |recents|}}
             <section class="recent-posts">
                 <h3>Recent Blog Posts&#58;</h3>
@@ -88,7 +92,6 @@
                 </ol>
             </section>
         {{/get}}
-        
-         
+           
     </div>
 </aside>

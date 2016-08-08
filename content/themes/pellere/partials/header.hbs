@@ -10,9 +10,27 @@
         <h1><a href="{{@blog.url}}">{{{@blog.title}}}</a></h1>
     </div>
     <div class="menu_pellere">
-        <a class="button_pellere rss_pellere" href="{{@blog.url}}/rss/"><i class="fa fa-rss"><span class="hidden_pellere">RSS</span></i></a>
+        <ul>
+            {{#if @blog.twitter}}
+                <li>
+                    <a class="button_pellere twitter-button" href="{{twitter_url}}"><i class="fa fa-twitter"><span class="hidden_pellere">Twitter</span></i></a>
+                </li>
+            {{/if}}
+            {{#if @blog.facebook}}
+                <li>
+                    <a class="button_pellere facebook-button" href="{{facebook_url}}"><i class="fa fa-facebook"><span class="hidden_pellere">Facebook</span></i></a>
+                </li>
+            {{/if}}
+            <li>
+                <a class="button_pellere rss_pellere" href="{{@blog.url}}/rss/"><i class="fa fa-rss"><span class="hidden_pellere">RSS</span></i></a>
+            </li>
+            {{#if @blog.navigation}}
+                <li>
+                    <a id="trigger-overlay" class="button_pellere" href="#"><i class="fa fa-bars"><span class="hidden_pellere">MENU</span></i></a>
+                </li>
+            {{/if}}
+        </ul>
         {{#if @blog.navigation}}
-            <a id="trigger-overlay" class="button_pellere" href="#"><i class="fa fa-bars"><span class="hidden_pellere">MENU</span></i></a>
             {{navigation}}
         {{/if}}
     </div>

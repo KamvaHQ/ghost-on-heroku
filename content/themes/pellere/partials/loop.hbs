@@ -1,10 +1,9 @@
- {{#foreach posts}}
+{{#foreach posts}}
             
     {{#if featured}}
         
         <article class="{{post_class}}">
             <a href="{{url}}" class="inner-featured {{#if image}}featured-with-image" style="background-image: url({{image}}){{/if}}" rel="bookmark">
-               
                 <div class="inner_pellere">
                     <header class="article-header_pellere">
                         <h2 class="post-title_pellere">{{title}}</h2>
@@ -13,13 +12,12 @@
                         <p>{{excerpt words="19"}}&hellip;</p>
                     </section>
                     <footer class="post-meta_pellere">
-                        <span class="read-more_pellere">Read More</span>
+                        <span class="read-more_pellere">ادامه مطلب</span>
                     </footer>
                 </div>
                 <div class="star_pellere"><i class="fa fa-star"></i></div>
             </a>
         </article>
-        <hr class="featured-hr_pellere" />
         
     {{else}}
 
@@ -36,11 +34,13 @@
                 </a>
             </section>
             <footer class="post-meta_pellere">
-                {{#if author.image}}<a href="{{@blog.url}}/author/{{author.slug}}"><img class="author-thumb_pellere" src="{{author.image}}" alt="Author image" nopin="nopin" /></a>{{/if}}
+                {{#if author.image}}
+                    <a href="{{@blog.url}}/author/{{author.slug}}"><img class="author-thumb_pellere" src="{{author.image}}" alt="عکس نویسنده" nopin="nopin" /></a>
+                {{/if}}
                 <ul>
                     <li class="author-name_pellere"><a href="{{@blog.url}}/author/{{author.slug}}">{{author.name}}</a></li>
                     <li>
-                        <time>{{date format='DD MMM YYYY'}}</time>
+                        <time datetime="{{date format='YYYY-MM-DD'}}">{{date format='DD MMM YYYY'}}</time>
                         {{#if tags}}<span>{{tags separator=", "}}</span>{{/if}}
                     </li>
                 </ul>
